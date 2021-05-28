@@ -185,6 +185,7 @@ def clear_updated():
     f.close()
 
 def main(auftrag):
+    checke_alle_devices(BOB.alle_ips)
     BOB.clear_Folder()
     create_files(BOB.alle_ips)
     BOB.set_auftrag(auftrag)
