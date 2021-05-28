@@ -7,14 +7,18 @@ import os
 import zipfile
 import glob
 import subprocess
-
 class BulkUpdate():
-    def __init__(self,auftrag):
+    def __init__(self):
         self.Server = "http://157.90.184.181/"
+        self.alle_ips = []
+        self.erledigt = []
         ascii_banner = pyfiglet.figlet_format("BulkUpdate")
         print(ascii_banner)
+        #self.clear_Folder()
+        self.get_all_devices()
 
-        self.clear_Folder()
+    def set_auftrag(self,auftrag):
+
         if auftrag == "1":
             self.find_version()
             self.download_newest_version()
@@ -23,7 +27,7 @@ class BulkUpdate():
             self.download_pogodroid()
         else: 
             self.Ausgabe("This is not a valid ID")
-        self.get_all_devices()
+        
 
     def Ausgabe(self,Nachricht):
         print("[BulkUpdate]: "+Nachricht+"\n")
@@ -43,10 +47,12 @@ class BulkUpdate():
         bereits_erledigt = open(erledigt).read()
         self.alle_ips = ast.literal_eval(alle_ips)
         self.erledigt = ast.literal_eval(bereits_erledigt)
-        Ausgabe = ""
         for a in self.alle_ips:
-            Ausgabe = Ausgabe + ", "+a
-            self.Ausgabe("Found following device: "+str(a))
+            if a in self.erledigt:
+                self.Ausgabe("Found following device: "+str(a)+" (done)")
+                #self.alle_ips.remove(a)
+            else:
+                self.Ausgabe("Found following device: "+str(a)+" (pending)")
 
     def find_version(self):
         self.Ausgabe("Searching for new PoGo Version")
@@ -85,6 +91,26 @@ class BulkUpdate():
 
         self.Ausgabe("Folder cleared")
 
+    def erledige_device(self,ip):
+        self.erledigt.append(ip)
+        self.Ausgabe("Erledigte Devices: "+str(self.erledigt))
+        f = open("updated.txt", "w")
+        f.write(str(self.erledigt))
+        f.close()
+
+    def checke_status(self):
+        Status = True
+        self.Ausgabe("Starte Status Check")
+        for ip in self.alle_ips:
+            if ip in self.erledigt:
+                self.Ausgabe(ip+" done")
+            else:
+                Status = False
+                self.Ausgabe(ip + " not done")
+        return(Status)
+
+
+BOB = BulkUpdate()
 
 def Ausgaben(ip,Nachricht):
     print("["+ip+"]: "+Nachricht+"\n")
@@ -114,17 +140,68 @@ def disconnect_device(ip):
 
 def my_func(ip):
     alle_apks = get_all_apks()
-    connect_to_device(ip)
-    install_update(alle_apks,ip)
-    disconnect_device(ip)
+    if ip not in BOB.erledigt:
+        connect_to_device(ip)
+        #install_update(alle_apks,ip)
+        disconnect_device(ip)
+        #BOB.erledige_device(ip)
+        probiere_es(ip)
+        return(True)
+    else:
+        Ausgaben(ip," already done skipping")
+        return(False)
     #print(ip)
+def checke_alle_devices(alle_devices):
+    Erledigt = []
+    Fehler = []
+    for ip in alle_devices:
+        test = ip.replace(".","_")
+        bereits_erledigt = open(test+".txt").read()
+        erledigt = ast.literal_eval(bereits_erledigt)
+        if erledigt != Fehler:
+            if erledigt[0] in BOB.alle_ips:
+                BOB.erledige_device(erledigt[0])
+
+    for a in Erledigt:
+        BOB.erledige_device(a)
+
+def create_files(alle_ips):
+    for ip in alle_ips:
+        test = ip.replace(".","_")
+        f = open(test+".txt", "w")
+        f.write(str([]))
+        f.close()
+
+def probiere_es(ip):
+    test = ip.replace(".","_")
+    f = open(test+".txt", "w")
+    f.write(str([ip]))
+    f.close()
+
+def clear_updated():
+    Ausgaben("BulkUpdate-Service","Lösche Updated")
+    f = open("updated.txt", "w")
+    f.write(str([]))
+    f.close()
 
 def main(auftrag):
-    BOB = BulkUpdate(auftrag)
+    BOB.clear_Folder()
+    create_files(BOB.alle_ips)
+    BOB.set_auftrag(auftrag)
     alle_ips = BOB.alle_ips
     pool = mp.Pool(mp.cpu_count())
     result = pool.map(my_func, alle_ips)
-    BOB.clear_Folder()
+    print(result)
+    checke_alle_devices(BOB.alle_ips)
+    Ergebnis = BOB.checke_status()
+    if Ergebnis == True:
+        print("All Devices succesfull")
+        BOB.clear_Folder()
+        clear_updated()
+    else:
+        print("Es fehlen noch devices")
+    
+
 
 if __name__ == "__main__":
     print("this program supports the following functions")
@@ -134,3 +211,4 @@ if __name__ == "__main__":
 
     Test = input("Please enter the id of the order which is to be carried out ")
     main(Test)
+    
