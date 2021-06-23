@@ -142,7 +142,7 @@ def my_func(ip):
     alle_apks = get_all_apks()
     if ip not in BOB.erledigt:
         connect_to_device(ip)
-        #install_update(alle_apks,ip)
+        install_update(alle_apks,ip)
         disconnect_device(ip)
         #BOB.erledige_device(ip)
         probiere_es(ip)
@@ -152,18 +152,21 @@ def my_func(ip):
         return(False)
     #print(ip)
 def checke_alle_devices(alle_devices):
-    Erledigt = []
-    Fehler = []
-    for ip in alle_devices:
-        test = ip.replace(".","_")
-        bereits_erledigt = open(test+".txt").read()
-        erledigt = ast.literal_eval(bereits_erledigt)
-        if erledigt != Fehler:
-            if erledigt[0] in BOB.alle_ips:
-                BOB.erledige_device(erledigt[0])
-
-    for a in Erledigt:
-        BOB.erledige_device(a)
+        Erledigt = []
+        Fehler = []
+        for ip in alle_devices:
+            try:
+                test = ip.replace(".","_")
+                bereits_erledigt = open(test+".txt").read()
+                erledigt = ast.literal_eval(bereits_erledigt)
+                if erledigt != Fehler:
+                    if erledigt[0] in BOB.alle_ips:
+                        BOB.erledige_device(erledigt[0])
+            except:
+                print("File not found")
+        for a in Erledigt:
+            BOB.erledige_device(a)
+    
 
 def create_files(alle_ips):
     for ip in alle_ips:

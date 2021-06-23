@@ -101,14 +101,14 @@ class BulkUpdate(object):
         subprocess.call("adb connect "+str(ip),shell=True)
         print("conected to: "+str(ip))
 
-    def install_update(self, APK_Name):
+    def install_update(self, APK_Name,ip):
         print("installing "+APK_Name+" .....")
-        subprocess.call("adb install -r "+str(APK_Name)+".apk",shell=True)
+        subprocess.call("adb -s "+ip+" install -r "+str(APK_Name)+".apk",shell=True)
         print(APK_Name+ " installed")
 
-    def install_packages(self):
+    def install_packages(self,ip):
         print("installing packages ...")
-        subprocess.call("adb install-multiple -r "+ self.Befehl,shell=True)
+        subprocess.call("adb -s "+ip+" install-multiple -r "+ self.Befehl,shell=True)
         print("all packages installed")
 
     def disconnect_device(self,ip):
@@ -131,7 +131,7 @@ class BulkUpdate(object):
             else:
                 if self.need_more == True:
                     self.connect_to_device(a)
-                    self.install_packages()
+                    self.install_packages(a)
                     self.disconnect_device(a)
                     self.erledige_device(a)
                     self.check_status()
@@ -176,7 +176,7 @@ class BulkUpdate(object):
             else:
                 if self.need_more == True:
                     self.connect_to_device(a)
-                    self.install_update("PogoDroid")
+                    self.install_update("PogoDroid",a)
                     self.disconnect_device(a)
                     self.erledige_device(a)
                     self.check_status()
@@ -187,7 +187,7 @@ class BulkUpdate(object):
 
         for a in self.alle_ips:
             self.connect_to_device(a)
-            self.install_update(APK)
+            self.install_update(APK,a)
             self.disconnect_device(a)
 
     def download_rgc(self):
