@@ -108,7 +108,7 @@ class BulkUpdate(object):
 
     def install_packages(self,ip):
         print("installing packages ...")
-        #subprocess.call("adb uninstall com.nianticlabs.pokemongo",shell=True)
+        subprocess.call("adb uninstall com.nianticlabs.pokemongo",shell=True)
         subprocess.call("adb -s "+ip+" install-multiple -r "+ self.Befehl,shell=True)
         print("all packages installed")
 
