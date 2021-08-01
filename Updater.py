@@ -151,7 +151,8 @@ class Bulkupdate(object):
         files = glob.glob('*')
         for f in files:
             if f not in dont_delete:
-                os.remove(f)
+                #os.remove(f)
+                pass
         print("Folder cleared.")
 
     def connect_all_devices(self):
@@ -210,8 +211,8 @@ class Bulkupdate(object):
             self.search_for_apk()
             for ip in self.ip_32:
                 if ip not in self.erledigt:
-                    #self.uninstall_pogo()
-                    #self.install_packages(ip)
+                    self.uninstall_pogo()
+                    self.install_packages(ip)
                     self.erledige_device(ip)
                 else:
                     print(ip," already done skipping")
@@ -223,8 +224,8 @@ class Bulkupdate(object):
             self.search_for_apk()
             for ip in self.ip_64:
                 if ip not in self.erledigt:
-                    #self.uninstall_pogo()
-                    #self.install_packages(ip)
+                    self.uninstall_pogo()
+                    self.install_packages(ip)
                     self.erledige_device(ip)
                 else:
                     print(ip," already done skipping")
@@ -249,7 +250,7 @@ class Bulkupdate(object):
             self.search_for_apk()
             for ip in self.ip_32:
                 if ip not in self.erledigt:
-                    #self.install_packages(ip)
+                    self.install_packages(ip)
                     self.erledige_device(ip)
                 else:
                     print(ip," already done skipping")
@@ -261,7 +262,7 @@ class Bulkupdate(object):
             self.search_for_apk()
             for ip in self.ip_64:
                 if ip not in self.erledigt:
-                    #self.install_packages(ip)
+                    self.install_packages(ip)
                     self.erledige_device(ip)
                 else:
                     print(ip," already done skipping")
@@ -286,7 +287,7 @@ class Bulkupdate(object):
         if len(self.ip_32) > 0:
             for ip in self.ip_32:
                 if ip not in self.erledigt:
-                    #self.install_packages(ip)
+                    self.install_packages(ip)
                     self.erledige_device(ip)
                 else:
                     print(ip," already done skipping")
@@ -296,7 +297,7 @@ class Bulkupdate(object):
         if len(self.ip_64) > 0:
             for ip in self.ip_64:
                 if ip not in self.erledigt:
-                    #self.install_packages(ip)
+                    self.install_packages(ip)
                     self.erledige_device(ip)
                 else:
                     print(ip," already done skipping")
@@ -328,7 +329,7 @@ class Bulkupdate(object):
             self.search_for_apk()
             for ip in self.ip_32:
                 if ip not in self.erledigt:
-                    #self.install_packages(ip)
+                    self.install_packages(ip)
                     self.erledige_device(ip)
                 else:
                     print(ip," already done skipping")
@@ -340,7 +341,7 @@ class Bulkupdate(object):
             self.search_for_apk()
             for ip in self.ip_64:
                 if ip not in self.erledigt:
-                    #self.install_packages(ip)
+                    self.install_packages(ip)
                     self.erledige_device(ip)
                 else:
                     print(ip," already done skipping")
