@@ -2,14 +2,12 @@ import requests
 import pyfiglet
 import urllib
 import json
-
 from Updater import Bulkupdate
-
-
 class BulkupdateUpdater(object):
     def __init__(self):
         ascii_banner = pyfiglet.figlet_format("BulkUpdate")
         print(ascii_banner)
+
         self.Server = "http://157.90.184.181/"
         url = self.Server + "Version2.json"
         r = requests.get(url)

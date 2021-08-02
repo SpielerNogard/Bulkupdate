@@ -1,3 +1,4 @@
+
 import requests
 import pyfiglet
 import urllib
@@ -384,5 +385,3 @@ class Bulkupdate(object):
         elif Test == "7":
             self.install_both()
 
-if __name__ == "__main__":
-    I = Bulkupdate()
