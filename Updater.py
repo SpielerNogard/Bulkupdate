@@ -18,7 +18,7 @@ class Bulkupdate(object):
 
         self.check_on_server()
         self.get_all_devices()
-        #self.bulkupdate()
+        self.bulkupdate()
 
     def check_on_server(self):
         url = config.Server + "Version2.json"
