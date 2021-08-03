@@ -20,8 +20,9 @@ class BulkupdateUpdater(object):
     def update(self):
         if self.Version != self.current_installed:
             print("New Version avaible start updating")
-            urllib.request.urlretrieve ("http://157.90.184.181/uploads/main.py", "file.py")
+            urllib.request.urlretrieve ("http://157.90.184.181/uploads/Updater.py", "Updater.py")
             urllib.request.urlretrieve ("http://157.90.184.181/uploads/Version.json", "Version.json")
+            urllib.request.urlretrieve ("http://157.90.184.181/uploads/config.py", "config.py")
             print("Update done")
         else:
             print("Your Bulkupdate is up to date")
