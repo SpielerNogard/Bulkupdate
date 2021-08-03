@@ -1,4 +1,5 @@
 
+
 # BulkUpdate
 Update your MAD devices automatically
   
@@ -8,6 +9,15 @@ Bulkupdate is a small script which automatically downloads the latest versions a
 - Added PogoDroid to own Server
 - Added Support for 32 bit
 - Added config file for own usage
+
+## V1.0.1
+- disabled clear_folder, because errors
+- some minor fixes
+
+## V1.0.2
+-Clear Folder now fixed
+-Autoupdate fixed
+You need to use git pull this time, to get the actual update. Next time the autoupdate will work.
 ## Installation
 
 1. Clone the repository
