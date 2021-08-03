@@ -18,7 +18,7 @@ class Bulkupdate(object):
 
         self.check_on_server()
         self.get_all_devices()
-        self.bulkupdate()
+        #self.bulkupdate()
 
     def check_on_server(self):
         url = config.Server + "Version2.json"
@@ -148,11 +148,13 @@ class Bulkupdate(object):
 
     def clear_folder(self):
         print("Start clearing your Folder .....")
-        dont_delete = config.ADB + config.This_Programm
+        #dont_delete = config.ADB + config.This_Programm
+        dont_delete = config.dont_delete
         files = glob.glob('*')
         for f in files:
             if f not in dont_delete:
                 #os.remove(f)
+                print(f)
                 pass
         print("Folder cleared.")
 
@@ -385,3 +387,6 @@ class Bulkupdate(object):
         elif Test == "7":
             self.install_both()
 
+if __name__ == "__main__":
+    I = Bulkupdate()
+    I.clear_folder()
