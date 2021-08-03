@@ -153,8 +153,8 @@ class Bulkupdate(object):
         files = glob.glob('*')
         for f in files:
             if f not in dont_delete:
-                #os.remove(f)
-                print(f)
+                os.remove(f)
+                #print(f)
                 pass
         print("Folder cleared.")
 
