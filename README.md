@@ -15,8 +15,9 @@ Bulkupdate is a small script which automatically downloads the latest versions a
 - some minor fixes
 
 ## V1.0.2
--Clear Folder now fixed
--Autoupdate fixed
+- Clear Folder now fixed
+- Autoupdate fixed
+- 
 You need to use git pull this time, to get the actual update. Next time the autoupdate will work.
 ## Installation
 
