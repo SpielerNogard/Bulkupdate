@@ -2,6 +2,7 @@ import requests
 import pyfiglet
 import urllib
 import json
+
 from Updater import Bulkupdate
 class BulkupdateUpdater(object):
     def __init__(self):
