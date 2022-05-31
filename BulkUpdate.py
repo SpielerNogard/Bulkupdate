@@ -2,6 +2,7 @@ import requests
 import pyfiglet
 import urllib
 import json
+from config import Server
 
 from Updater import Bulkupdate
 class BulkupdateUpdater(object):
@@ -9,7 +10,7 @@ class BulkupdateUpdater(object):
         ascii_banner = pyfiglet.figlet_format("BulkUpdate")
         print(ascii_banner)
 
-        self.Server = "http://157.90.184.181/"
+        self.Server = Server
         url = self.Server + "Version2.json"
         r = requests.get(url)
         Ergebnis = r.json()
@@ -21,9 +22,9 @@ class BulkupdateUpdater(object):
     def update(self):
         if self.Version != self.current_installed:
             print("New Version avaible start updating")
-            urllib.request.urlretrieve ("http://157.90.184.181/uploads/Updater.py", "Updater.py")
-            urllib.request.urlretrieve ("http://157.90.184.181/uploads/Version.json", "Version.json")
-            urllib.request.urlretrieve ("http://157.90.184.181/uploads/config.py", "config.py")
+            urllib.request.urlretrieve (f"{self.Server}uploads/Updater.py", "Updater.py")
+            urllib.request.urlretrieve (f"{self.Server}uploads/Version.json", "Version.json")
+            urllib.request.urlretrieve (f"{self.Server}uploads/config.py", "config.py")
             print("Update done")
         else:
             print("Your Bulkupdate is up to date")

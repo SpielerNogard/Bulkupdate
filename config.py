@@ -1,5 +1,5 @@
 #Update Server
-Server = "http://157.90.184.181/"
+Server = "http://62.68.75.189/"
 
 #Do not use App Bundles to install your Updates ( False for APP Bundles, True for APK only)
 force_apk = False
