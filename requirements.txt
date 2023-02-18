@@ -1,5 +1,6 @@
-pyfiglet
-ast
-os
-subprocess
-urllib
+prompt_toolkit==1.0.14
+PyInquirer==1.0.3
+aiohttp==3.8.4
+requests==2.28.2
+beautifulsoup4==4.11.2
+html5lib==1.1
